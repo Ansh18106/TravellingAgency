@@ -12,12 +12,15 @@ public class Passenger {
         Connection conn = new Connection();
         return conn.getPassengersCollection();
     }
-    public static Document getTravelPackage(int passengerNumber) {
+    public static Document getPassenger(int passengerNumber) {
         MongoCollection<Document> passengersCollection = getPassengersCollection();
         return passengersCollection.find(new Document("passangerNumber", passengerNumber)).first();
     }
     public static String getPassengerName(Document passenger) {
         return (String) passenger.get("name");
+    }
+    public static int getPassengerNumber(Document passenger) {
+        return (int) passenger.get("passangerNumber");
     }
     public static int getPassengerType(Document passenger) {
         return (int) passenger.get("type");
@@ -29,13 +32,16 @@ public class Passenger {
         return (List<Integer>) passenger.get("activityIds");
     }
     public static void printPassengerName(Document passenger) {
-        System.out.println(getPassengerName(passenger));
+        System.out.println("Passenger Name: " + getPassengerName(passenger));
+    }
+    public static void printPassengerNumber(Document passenger) {
+        System.out.println("Passenger Number: " + getPassengerNumber(passenger));
     }
     public static void printPassengerType(Document passenger) {
-        System.out.println(getPassengerType(passenger));
+        System.out.println("Passenger Type: " + getPassengerType(passenger));
     }
     public static void printPassengerBalance(Document passenger) {
-        System.out.println(getPassengerBalance(passenger));
+        System.out.println("Passenger Balance: " + getPassengerBalance(passenger));
     }
     public static void printPassengersAllActivities(Document passenger) {
         List<Integer> activityIds =  getPassengerActivityIds(passenger);
@@ -44,6 +50,6 @@ public class Passenger {
         }
     }
     public void main(int passengerNumber) {
-        Document passenger = getTravelPackage(passengerNumber);
+        Document passenger = getPassenger(passengerNumber);
     }
 }

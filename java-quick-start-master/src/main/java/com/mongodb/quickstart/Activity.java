@@ -40,20 +40,20 @@ public class Activity {
         return (List<Integer>) activity.get("passengersId");
     }
     public static void printActivityName(Document activity) {
-        System.out.println(getActivityName(activity));
+        System.out.println("Activity Name: " + getActivityName(activity));
     }
     public static void printActivityDescription(Document activity) {
-        System.out.println(getActivityDescription(activity));
+        System.out.println("Activity Description: " + getActivityDescription(activity));
+    }
+    public static void printActivityCost(Document activity) {
+        System.out.println("Activity Cost: " + getActivityCost(activity));
+    }
+    public static void printActivityCapacity(Document activity) {
+        System.out.println("Activity Capacity: " + getActivityCapacity(activity));
     }
     public static void printActivityDestination(Document activity) {
         int destinationId = getActivityDestinationId(activity);
         // call print destination;
-    }
-    public static void printActivityCost(Document activity) {
-        System.out.println(getActivityCost(activity));
-    }
-    public static void printActivityCapacity(Document activity) {
-        System.out.println(getActivityCapacity(activity));
     }
     public static void printActivityPassengersIds(Document activity) {
         List<Integer> activityPassengersIds = getActivityPassengersIds(activity);
