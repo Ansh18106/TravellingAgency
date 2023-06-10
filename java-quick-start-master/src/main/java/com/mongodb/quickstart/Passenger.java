@@ -1,2 +1,49 @@
-package com.mongodb.quickstart;public class Passenger {
+package com.mongodb.quickstart;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+import java.util.List;
+
+
+public class Passenger {
+    public static MongoCollection<Document> getPassengersCollection() {
+        Connection conn = new Connection();
+        return conn.getPassengersCollection();
+    }
+    public static Document getTravelPackage(int passengerNumber) {
+        MongoCollection<Document> passengersCollection = getPassengersCollection();
+        return passengersCollection.find(new Document("passangerNumber", passengerNumber)).first();
+    }
+    public static String getPassengerName(Document passenger) {
+        return (String) passenger.get("name");
+    }
+    public static int getPassengerType(Document passenger) {
+        return (int) passenger.get("type");
+    }
+    public static int getPassengerBalance(Document passenger) {
+        return (int) passenger.get("Balance");
+    }
+    public static List<Integer> getPassengerActivityIds(Document passenger) {
+        return (List<Integer>) passenger.get("activityIds");
+    }
+    public static void printPassengerName(Document passenger) {
+        System.out.println(getPassengerName(passenger));
+    }
+    public static void printPassengerType(Document passenger) {
+        System.out.println(getPassengerType(passenger));
+    }
+    public static void printPassengerBalance(Document passenger) {
+        System.out.println(getPassengerBalance(passenger));
+    }
+    public static void printPassengersAllActivities(Document passenger) {
+        List<Integer> activityIds =  getPassengerActivityIds(passenger);
+        for (Integer activityId: activityIds) {
+            // call print activities
+        }
+    }
+    public void main(int passengerNumber) {
+        Document passenger = getTravelPackage(passengerNumber);
+    }
 }

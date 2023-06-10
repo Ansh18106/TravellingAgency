@@ -13,6 +13,8 @@ import org.bson.conversions.Bson;
 import java.util.*;
 
 public class TravellingAgency {
+    Connection conn = new Connection();
+//    private static MongoDatabase travellingAgencyDB = conn.travellingAgencyDB;
     private static int totalPassengers = 0;
     private static  String connectionString = new String ("mongodb+srv://anshbansal18106:c9Dpy2kixtbr1MdB@cluster0.hnswyqe.mongodb.net/?retryWrites=true&w=majority");
     private static MongoClient mongoClient = MongoClients.create(connectionString);
@@ -22,6 +24,7 @@ public class TravellingAgency {
     private static MongoCollection<Document> packagesCollection = travellingAgencyDB.getCollection("packages");
     private static MongoCollection<Document> passengersCollection = travellingAgencyDB.getCollection("passangers");
 
+    //
     private static int getActivityCostForCurrentPassenger(int activityCost, int passengerType) {
 //        System.out.println(25);
         int activityCostForCurrentPassenger = activityCost;
@@ -299,13 +302,16 @@ public class TravellingAgency {
     }
 
     public static void main(String[] args) {
+        Destination d = new Destination();
+//        d.getName();
+//        d.getPackageId();
         int travelPackageId = 0, passengerId = 3, packageId = 3;
 
-        signupForNewActivity(2, 0); // task 0 done
-
+//        signupForNewActivity(2, 0); // task 0 done
+//
         printItinerary(travelPackageId); // task 1 done
-        printPassengerDetailsOfPackage(packageId); // task 2 done
-        passengerDetails(passengerId); // task 3 done
-        printAvailableActivity(); // task 4 done
+//        printPassengerDetailsOfPackage(packageId); // task 2 done
+//        passengerDetails(passengerId); // task 3 done
+//        printAvailableActivity(); // task 4 done
     }
 }

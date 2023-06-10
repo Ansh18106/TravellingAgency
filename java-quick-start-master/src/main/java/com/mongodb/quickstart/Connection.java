@@ -13,16 +13,23 @@ import org.bson.conversions.Bson;
 import java.util.*;
 
 public class Connection {
-    public static int totalPassengers = 0;
-    public static  String connectionString = new String ("mongodb+srv://anshbansal18106:c9Dpy2kixtbr1MdB@cluster0.hnswyqe.mongodb.net/?retryWrites=true&w=majority");
-    public static MongoClient mongoClient = MongoClients.create(connectionString);
-    public static MongoDatabase travellingAgencyDB = mongoClient.getDatabase("test");
-    public static MongoCollection<Document> activitiesCollection = travellingAgencyDB.getCollection("activities");
-    public static MongoCollection<Document> destinationsCollection = travellingAgencyDB.getCollection("destinations");
-    public static MongoCollection<Document> packagesCollection = travellingAgencyDB.getCollection("packages");
-    public static MongoCollection<Document> passengersCollection = travellingAgencyDB.getCollection("passangers");
+    private static String connectionString = new String ("mongodb+srv://anshbansal18106:c9Dpy2kixtbr1MdB@cluster0.hnswyqe.mongodb.net/?retryWrites=true&w=majority");
+    private static MongoClient mongoClient = MongoClients.create(connectionString);
+    private static MongoDatabase travellingAgencyDB = mongoClient.getDatabase("test");
+    public MongoCollection<Document> getActivitiesCollection () {
+        return travellingAgencyDB.getCollection("activities");
+    }
+    public MongoCollection<Document> getDestinationsCollection () {
+        return travellingAgencyDB.getCollection("destinations");
+    }
+    public MongoCollection<Document> getPackagesCollection () {
+        return travellingAgencyDB.getCollection("packages");
+    }
+    public MongoCollection<Document> getPassengersCollection () {
+        return travellingAgencyDB.getCollection("passangers");
+    }
 
-    public static int getActivityCostForCurrentPassenger(int activityCost, int passengerType) {
+    public int getActivityCostForCurrentPassenger(int activityCost, int passengerType) {
 //        System.out.println(25);
         int activityCostForCurrentPassenger = activityCost;
         switch (passengerType) {
@@ -39,27 +46,27 @@ public class Connection {
         return activityCostForCurrentPassenger;
     }
 
-    public static void printPassengerNumber(Document passenger) {
+    public void printPassengerNumber(Document passenger) {
 //        System.out.println(42);
         int passengerNumber = (int) passenger.get("passangerNumber");
         System.out.println("Passenger Number: " + passengerNumber);
     }
-    public static void printPassengerBalance(Document passenger) {
+    public void printPassengerBalance(Document passenger) {
 //        System.out.println(47);
         int passengerBalance = (int) passenger.get("Balance");
         System.out.println("Passenger Balance: " + passengerBalance);
     }
-    public static void printPassengerType(Document passenger) {
+    public void printPassengerType(Document passenger) {
 //        System.out.println(52);
         int passengerType = (int) passenger.get("type");
         System.out.println("Passenger Type: " + passengerType);
     }
-    public static void printPassengerName(Document passenger) {
+    public void printPassengerName(Document passenger) {
 //        System.out.println(56);
         String passengerName = (String) passenger.get("name");
         System.out.println("Passenger Name: " + passengerName);
     }
-    public static void printPassengerDetails(Document passenger, Boolean passengerNumber, Boolean Balance, Boolean passengerType, Boolean passengerName, Boolean printActivities) {
+    public void printPassengerDetails(Document passenger, Boolean passengerNumber, Boolean Balance, Boolean passengerType, Boolean passengerName, Boolean printActivities) {
 //        System.out.println(62);
         if (passengerName) printPassengerName(passenger);
         if (passengerNumber) printPassengerNumber(passenger);
@@ -67,27 +74,27 @@ public class Connection {
         if (passengerType) printPassengerType(passenger);
 //        if (printActivities) printActivity();
     }
-    public static void printActivityCapacity(Document activity) {
+    public void printActivityCapacity(Document activity) {
 //        System.out.println(70);
         int activityCapacity = (int) activity.get("capacity");
         System.out.println("\t\tCurrent Capacity: " + activityCapacity);
     }
-    public static void printActivityCost(Document activity) {
+    public void printActivityCost(Document activity) {
 //        System.out.println(75);
         int activityCost = (int) activity.get("cost");
         System.out.println("\t\tActivity Cost: " + activityCost);
     }
-    public static void printActivityDescription(Document activity) {
+    public void printActivityDescription(Document activity) {
 //        System.out.println(80);
         String activityDescription = (String) activity.get("description");
         System.out.println("\t\tActivity Description: " + activityDescription);
     }
-    public static void printActivityName(Document activity) {
+    public void printActivityName(Document activity) {
 //        System.out.println(85);
         String activityName = (String) activity.get("name");
         System.out.println("\t\tActivity Name: " + activityName);
     }
-    public static void printActivityDestination(Document activity, Boolean printDestinationId, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
+    public void printActivityDestination(Document activity, Boolean printDestinationId, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
 //        System.out.println(90);
         Boolean printName = true;
         Integer destinationId = (Integer) activity.get("destinationId");
@@ -95,7 +102,7 @@ public class Connection {
         printDestinationName(destination);
 //        printDestinationFromId(destinationId, printName, printDestinationId, printActivities, printPassengers, countNumberOfPassengers);
     }
-    public static void printActivityPassengers(Document activity, Boolean countNumberOfPassengers, Boolean printPassengerBalance, Boolean printPassengerType) {
+    public void printActivityPassengers(Document activity, Boolean countNumberOfPassengers, Boolean printPassengerBalance, Boolean printPassengerType) {
 //        System.out.println(96);
         List<Integer> passengerIds = (List<Integer>) activity.get("passengersId");
 
@@ -107,7 +114,7 @@ public class Connection {
             printPassengerDetails(passenger, true, printPassengerBalance, printPassengerType, true, true);
         }
     }
-    public static void printActivityDetails(Document activity, Boolean printActivityName, Boolean printDescription, Boolean printCost, Boolean printCapacity, Boolean printDestination, Boolean printDestinationId, Boolean printPassengers, Boolean countNumberOfPassengers, Boolean printActivities) {
+    public void printActivityDetails(Document activity, Boolean printActivityName, Boolean printDescription, Boolean printCost, Boolean printCapacity, Boolean printDestination, Boolean printDestinationId, Boolean printPassengers, Boolean countNumberOfPassengers, Boolean printActivities) {
 //        System.out.println(105);
         System.out.println("________________________________________________________________________________");
         if (printActivityName) printActivityName(activity);
@@ -117,17 +124,17 @@ public class Connection {
         if (printDestination) printActivityDestination(activity, printDestinationId, printActivities, printPassengers, countNumberOfPassengers);
         if (printPassengers || countNumberOfPassengers) printActivityPassengers(activity, countNumberOfPassengers, false, false);
     }
-    public static void printDestinationName(Document destination) {
+    public void printDestinationName(Document destination) {
 //        System.out.println(115);
         String name = (String) destination.get("name");
         System.out.println("\tDestination Name: " + name);
     }
-    public static void printDestinationPackageId(Document destination) {
+    public void printDestinationPackageId(Document destination) {
 //        System.out.println(120);
         int packageId = (int) destination.get("packageId");
         System.out.println("\tPackage Id: " + packageId);
     }
-    public static void printDestinationActivities(Document destination, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
+    public void printDestinationActivities(Document destination, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
 //        System.out.println(125);
         Boolean printName = printActivities,
                 printDescription = printActivities,
@@ -147,32 +154,32 @@ public class Connection {
         }
     }
 
-    public static void printDestination (Document destination, Boolean name, Boolean packageId, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
+    public void printDestination (Document destination, Boolean name, Boolean packageId, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
 //        System.out.println(145);
         if (name) printDestinationName(destination);
         if (packageId) printDestinationPackageId(destination);
         if(printActivities || printPassengers || countNumberOfPassengers) printDestinationActivities(destination, printActivities, printPassengers, countNumberOfPassengers);
     }
-    public static void printPackageId(Document travelPackage) {
+    public void printPackageId(Document travelPackage) {
 //        System.out.println(151);
         int packageId = (int) travelPackage.get("id");
         System.out.println(packageId);
     }
-    public static void printPackageName(Document travelPackage) {
+    public void printPackageName(Document travelPackage) {
 //        System.out.println(156);
         String packageName = (String) travelPackage.get("name");
         System.out.println("Package Name: " + packageName);
     }
-    public static void printPackageCapacity(Document travelPackage) {
+    public void printPackageCapacity(Document travelPackage) {
 //        System.out.println(161);
         int packageCapacity = (int) travelPackage.get("capacity");
         System.out.println("Package Capacity: " + packageCapacity);
     }
-    public static void printDestinationFromId(int destinationId, Boolean printName, Boolean printPackageId, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
+    public void printDestinationFromId(int destinationId, Boolean printName, Boolean printPackageId, Boolean printActivities, Boolean printPassengers, Boolean countNumberOfPassengers) {
             Document destination = destinationsCollection.find(new Document("id", destinationId)).first();
             printDestination(destination, printName, false, printActivities, printPassengers, countNumberOfPassengers);
     }
-    public static void printPackageItineraries(Document travelPackage, Boolean printDestination, Boolean printPassengers, Boolean countNumberOfPassengers) {
+    public void printPackageItineraries(Document travelPackage, Boolean printDestination, Boolean printPassengers, Boolean countNumberOfPassengers) {
 //        System.out.println(166);
         Boolean printName = printDestination,
                 printActivities = printDestination;
@@ -185,19 +192,19 @@ public class Connection {
         }
 //        System.out.println(destinationIds);
     }
-    public static void printPackagePassengers(Document travelPackage, Boolean countNumberOfPassengers) {
+    public void printPackagePassengers(Document travelPackage, Boolean countNumberOfPassengers) {
 //        System.out.println(178);
         printPackageItineraries(travelPackage, false, true, countNumberOfPassengers);
     }
 
-    public static void printPackageDetails(Document travelPackage, Boolean printDestination, Boolean printId, Boolean printName, Boolean printItineraries, Boolean printPassengers, Boolean countNumberOfPassengers) {
+    public void printPackageDetails(Document travelPackage, Boolean printDestination, Boolean printId, Boolean printName, Boolean printItineraries, Boolean printPassengers, Boolean countNumberOfPassengers) {
 //        System.out.println(183);
         if (printId) printPackageId(travelPackage);
         if (printName) printPackageName(travelPackage);
         if (printItineraries) printPackageItineraries(travelPackage, printDestination, printPassengers, countNumberOfPassengers);
         if (printPassengers || countNumberOfPassengers) printPackagePassengers(travelPackage, countNumberOfPassengers);
     }
-    private static void getAllDocuments(MongoCollection<Document> col) {
+    private void getAllDocuments(MongoCollection<Document> col) {
 //        System.out.println(190);
         System.out.println("Fetching all documents from the collection");
         // Performing a read operation on the collection.
@@ -214,7 +221,7 @@ public class Connection {
             cursor.close();
         }
     }
-    public static void signupForNewActivity(Integer PassengerNumber, Integer ActivityId) { // task 0
+    public void signupForNewActivity(Integer PassengerNumber, Integer ActivityId) { // task 0
 //        System.out.println(207);
         Document passenger = passengersCollection.find(new Document("passangerNumber", PassengerNumber)).first();
         int passengerBalance = (int) passenger.get("Balance");
@@ -250,7 +257,7 @@ public class Connection {
             System.err.println("Unable to update due to an error: " + error);
         }
     }
-    public static void printItinerary(int travelPackageId) { // task 1
+    public void printItinerary(int travelPackageId) { // task 1
 //        System.out.println(243);
         try {
             Document travelPackage = packagesCollection.find(new Document("id", travelPackageId)).first();
@@ -259,7 +266,7 @@ public class Connection {
             System.err.println("Unable to print due to an error: " + error);
         }
     }
-    public  static void passengerDetails(int passangerId) { // task 2
+    public  void passengerDetails(int passangerId) { // task 2
 //        System.out.println(266);
         Document passenger = passengersCollection.find(new Document("passangerNumber", passangerId)).first();
         printPassengerDetails(passenger, true, true, true, true, true);
@@ -275,23 +282,24 @@ public class Connection {
             }
         } else System.out.println("This passenger has not signed up for any activities");
     }
-    public static void printTotalPassengers() {
+    public void printTotalPassengers() {
         System.out.println("Total number of passangers signed up in this package: " + totalPassengers);
         totalPassengers = 0;
     }
-    public static void printPassengerDetailsOfPackage(int ItineraryId) { //    task 3
+    public void printPassengerDetailsOfPackage(int ItineraryId) { //    task 3
 //        System.out.println(282);
         Document currentPackage = packagesCollection.find(new Document("id", ItineraryId)).first();
         printPackageDetails(currentPackage, false, false, true, false, true,true);
         printTotalPassengers();
     }
 
-    public static void printAvailableActivity() { // task 4.
-//        System.out.println(288);
-        getAllDocuments(activitiesCollection);
+    public void printAvailableActivity() { // task 4.
+        Utils allActivities = new Utils();
+        Activity activity = new Activity();
+        allActivities.getAllDocuments(activity.getActivitiesCollection());
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         int travelPackageId = 0, passengerId = 3, packageId = 3;
 
 //        signupForNewActivity(2, 0); // not complete yet __ task 0
