@@ -1,5 +1,4 @@
 package com.mongodb.quickstart;
-
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -8,12 +7,8 @@ import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import sun.security.krb5.internal.crypto.Des;
-
-import javax.print.Doc;
-import javax.rmi.CORBA.Util;
-import java.util.ArrayList;
 import java.util.List;
+
 public class main {
     public static void signupForNewActivity(int passengerNumber, int activityId) {
         Passenger passengerObj = new Passenger();

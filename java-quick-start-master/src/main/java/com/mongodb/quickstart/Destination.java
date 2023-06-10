@@ -1,17 +1,7 @@
 package com.mongodb.quickstart;
-
-import com.mongodb.MongoException;
 import com.mongodb.client.*;
-import com.mongodb.client.model.*;
-import com.mongodb.client.result.UpdateResult;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bson.Document;
-import org.bson.conversions.Bson;
-
-//import org.apache.log4j.Logger;
-
 import java.util.*;
-
 
 public class Destination {
     public static MongoCollection<Document> getDestinationCollection() {

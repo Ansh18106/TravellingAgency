@@ -1,11 +1,7 @@
 package com.mongodb.quickstart;
-
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
 import java.util.List;
-
 
 public class Passenger {
     public static MongoCollection<Document> getPassengersCollection() {
