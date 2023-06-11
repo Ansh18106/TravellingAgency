@@ -6,10 +6,12 @@ import Destination from "./Models/Destination.js";
 import Activity from "./Models/Activity.js";
 import Passanger from "./Models/Passanger.js";
 import Package from "./Models/Package.js";
-import { passengersData } from "./java-quick-start-master/data/passengers.js";
-import { activitiesData } from "./java-quick-start-master/data/activities.js";
-import { destinationData } from "./java-quick-start-master/data/destination.js";
-import { travelPackagesData } from "./java-quick-start-master/data/travelPackages.js";
+import PassengerType from "./Models/PassengerType.js";
+import { passengersData } from "./data/dataInJs/passengers.js";
+import { activitiesData } from "./data/dataInJs/activities.js";
+import { destinationData } from "./data/dataInJs/destination.js";
+import { travelPackagesData } from "./data/dataInJs/travelPackages.js";
+import { passangerTypeData } from "./data/dataInJs/passengerType.js";
 
 /* CONFIGURATION */
 const app = express();
@@ -34,10 +36,11 @@ mongoose
   .then(() => {
     app.listen(5001, () => console.log(`Server Connected to PORT: ${PORT}`));
     /* ONLY ADD ONE TIME */
-    // Passanger.insertMany(passengersData);
-    // Activity.insertMany(activitiesData);
-    // Destination.insertMany(destinationData);
-    // Package.insertMany(travelPackagesData);
+    Passanger.insertMany(passengersData);
+    Activity.insertMany(activitiesData);
+    Destination.insertMany(destinationData);
+    Package.insertMany(travelPackagesData);
+    PassengerType.insertMany(passangerTypeData);
   })
 
   .catch((err) => console.log("ERROR:::", err));

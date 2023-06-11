@@ -3,8 +3,25 @@ import FileSystem from "fs";
 var travelPackages = [];
 var Destinations = [];
 var Activities = [];
-var Passanger = [];
-// var PassangerType = [];
+var Passenger = [];
+var PassengerType = [];
+var PassengerType = [
+  {
+    id: 1,
+    subscriptionType: "Standard",
+    discountPercent: 0,
+  },
+  {
+    id: 2,
+    subscriptionType: "Gold",
+    discountPercent: 10,
+  },
+  {
+    id: 3,
+    subscriptionType: "Platinum",
+    discountPercent: 100,
+  },
+];
 
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -218,17 +235,17 @@ const giveafterAddLen = (variable, dependent, len) => {
 };
 
 for (var i = 0; i < 10000; ++i) {
-  const passanger = {
-    passangerNumber: i,
+  const passenger = {
+    passengerNumber: i,
     name: names[getRandomNumber(0, 192)],
-    Balance: getRandomNumber(1000, 10000),
+    balance: getRandomNumber(1000, 10000),
     type: getRandomNumber(1, 3),
     activityIds: [],
   };
-  Passanger.push(passanger);
+  Passenger.push(passenger);
 }
 const addPassenger = (id, dependent) => {
-  const len = getRandomNumber(0, 30);
+  const len = getRandomNumber(0, 4);
   const res = [];
   // console.log(dependent);
   for (var i = 0; i < len; ++i) {
@@ -245,9 +262,9 @@ for (var i = 0; i < 1000; ++i) {
     name: `Activity${i}`,
     description: `description${i}`,
     destinationId: Math.floor(i / 10),
-    cost: getRandomNumber(100, 1000),
-    capacity: getRandomNumber(0, 100),
-    passengersId: addPassenger(i, Passanger),
+    cost: getRandomNumber(10, 100) * 10,
+    capacity: getRandomNumber(6, 10),
+    passengersId: addPassenger(i, Passenger),
   };
   Activities.push(activity);
 }
@@ -266,26 +283,28 @@ for (var i = 0; i < 10; ++i) {
   const _package = {
     id: i,
     name: `Package${i}`,
-    capacity: getRandomNumber(100, 1000),
+    // capacity: getRandomNumber(100, 1000),
     destinationIds: giveafterAddLen(i, Destinations, 10),
   };
   travelPackages.push(_package);
 }
 
-console.log("Passanger: ", Passanger.length);
+console.log("Passenger: ", Passenger.length);
 console.log("Activities: ", Activities.length);
 console.log("Destinations: ", Destinations.length);
 console.log("travelPackages: ", travelPackages.length);
+console.log("PassengerType: ", PassengerType.length);
 
-console.log(Passanger[0]);
+console.log(Passenger[0]);
 console.log(Activities[0]);
 console.log(Destinations[0]);
 console.log(travelPackages[0]);
+console.log(PassengerType[0]);
 
 FileSystem.writeFile("Activities.json", JSON.stringify(Activities), (error) => {
   if (error) throw error;
 });
-FileSystem.writeFile("Passanger.json", JSON.stringify(Passanger), (error) => {
+FileSystem.writeFile("Passenger.json", JSON.stringify(Passenger), (error) => {
   if (error) throw error;
 });
 FileSystem.writeFile(
@@ -302,12 +321,10 @@ FileSystem.writeFile(
     if (error) throw error;
   }
 );
-// FileSystem.writeFile("Activities.js", Activities, (error) => {
-//   if (error) throw error;
-// });
-// FileSystem.writeFile("Passanger.js", Passanger, (error) => {
-//   if (error) throw error;
-// });
-// FileSystem.writeFile("Destinations.js", Destinations, (error) => {
-//   if (error) throw error;
-// });
+FileSystem.writeFile(
+  "PassengerType.json",
+  JSON.stringify(PassengerType),
+  (error) => {
+    if (error) throw error;
+  }
+);
