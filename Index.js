@@ -42,5 +42,4 @@ mongoose
     Package.insertMany(travelPackagesData);
     PassengerType.insertMany(passangerTypeData);
   })
-
   .catch((err) => console.log("ERROR:::", err));
